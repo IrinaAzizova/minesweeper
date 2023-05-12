@@ -1,28 +1,74 @@
+import toCreateLayout from "./modules/to-create-layout.js";
+
 document.addEventListener('DOMContentLoaded', () => {    
 
-    const toCreateCell = () => {
-        const field = document.querySelector('.field');
-        const cell = document.createElement('div');
-        cell.classList.add('cell', 'cell_flag');
-        field.append(cell);
+    const getRandomBombs = (max) => {
+        let bombs = new Set;
+        let field = [];
+
+        while (bombs.size < 10) {
+            let rand = Math.floor(Math.random() * max);
+            bombs.add(rand);
+        }
+
+        for (let x = 0; x < 10; x++) {
+            field.push([]);
+            for (let y = 0; y < 10; y++) {
+                let num = y + x *10;
+                if (bombs.has(num)) {
+                    field[x][y] = 'b';
+                } else {
+                    field[x][y] = num;
+                }                
+            }
+        }
+        return field;
     }
 
-    const toCreateLayout = (createBtnFunc) => {
-        const body = document.body;
-        const main = document.createElement('main');
-        main.classList.add('main');
-        main.innerHTML = `
-            <h1 class="main__title">Minesweeper</h1>
-            <p class="main__game-status">Mines on playing field: <span>10</span></p>
-            <div class="field">
-            </div>
-        `;
-        body.insertAdjacentElement('afterbegin', main);
-        for (let i = 0; i < 100; i++) {
-            createBtnFunc();
-        }
+    const getField = () => {
+        const bombsField = getRandomBombs(99);
+        let field = [];
+        bombsField.forEach((row, x) => {
+            field.push([]);
+            row.forEach((cell, y) => {
+                let bombsAround = 0;
+                if (cell === 'b') {
+                    field[x][y] = 'b';
+                } else {
+                    if (bombsField[x - 1] && bombsField[x - 1][y] === 'b') {
+                        bombsAround++;
+                    }
+                    if (bombsField[x - 1] && bombsField[x - 1][y - 1] === 'b') {
+                        bombsAround++;
+                    }
+                    if (bombsField[x - 1] && bombsField[x - 1][y + 1] === 'b') {
+                        bombsAround++;
+                    }
+                    if (bombsField[x + 1] && bombsField[x + 1][y] === 'b') {
+                        bombsAround++;
+                    }
+                    if (bombsField[x + 1] && bombsField[x + 1][y - 1] === 'b') {
+                        bombsAround++;
+                    }
+                    if (bombsField[x + 1] && bombsField[x + 1][y + 1] === 'b') {
+                        bombsAround++;
+                    }
+                    if (bombsField[x][y - 1] === 'b') {
+                        bombsAround++;
+                    }
+                    if (bombsField[x][y + 1] === 'b') {
+                        bombsAround++;
+                    }
+                    field[x][y] = bombsAround;
+                }                
+            });
+        });
+        return field;
     }
+
     
-    toCreateLayout(toCreateCell);
+
+    toCreateLayout(getField());
+
 });
 

@@ -85,8 +85,16 @@
 
 @media (max-width: 500px) {
     .main {
+        row-gap: 1rem;
+        &__title {
+            font-size: 2rem;
+            letter-spacing: 0.1rem;
+        }
+        &__game-status {
+            font-size: 1.3rem;
+        }
         .field {
-            padding: 0.5rem;
+            padding: 0.5rem;            
         }
         .cell {
             width: 1.5rem;
