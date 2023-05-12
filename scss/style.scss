@@ -1,3 +1,4 @@
+
 :root {
     --main-color: rgb(210, 210, 210);
     --dark-color: rgb(50, 50, 50, 0.5);
@@ -32,7 +33,7 @@
         font-size: 1.8rem;
         color: var(--dark-color);
         span {
-            color: red;
+            color: darkred;
             font-weight: 700;
         }
     }
@@ -49,14 +50,36 @@
     .cell {
         width: 2rem;
         height: 2rem;
-        margin: 0.1rem;
         border-radius: .3rem;
         border:var(--dark-color) solid 1px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
         background: -webkit-gradient(linear, left top, left bottom, from(rgb(210, 210, 210)), to(rgb(255, 255, 255)));
         box-shadow: inset 0 0 1px rgb(255, 255, 255),
                     inset 0 0 .4em rgb(200, 200, 200),
                     var(--shadow);
+        &_open {
+            box-shadow: none;
+            margin: 0;
+            border-radius: 0;
+            background: var(--main-color);
+        }
+        &_bomb {
+            background: url(../img/bomb.svg) var(--main-color) center center / 70% no-repeat;
+            box-shadow: none;
+            margin: 0;
+            border-radius: 0;
+
+        }
+        &_flag {
+            position: relative;
+            &::after {
+                content: url(../img/flag.svg);
+                width: 1rem;
+            }
+        }
     }
 }
 
@@ -68,14 +91,6 @@
         .cell {
             width: 1.5rem;
             height: 1.5rem;
-            margin: 0.1rem;
-            border-radius: .3rem;
-            border:var(--dark-color) solid 1px; 
-            cursor: pointer;
-            background: -webkit-gradient(linear, left top, left bottom, from(rgb(210, 210, 210)), to(rgb(255, 255, 255)));
-            box-shadow: inset 0 0 1px rgb(255, 255, 255),
-                        inset 0 0 .4em rgb(200, 200, 200),
-                        var(--shadow);
         }
     }
 }

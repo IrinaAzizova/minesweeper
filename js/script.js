@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toCreateCell = () => {
         const field = document.querySelector('.field');
         const cell = document.createElement('div');
-        cell.classList.add('cell');
+        cell.classList.add('cell', 'cell_flag');
         field.append(cell);
     }
 
