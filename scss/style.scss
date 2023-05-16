@@ -38,6 +38,13 @@
             font-weight: 700;
         }
     }
+    &__data {
+        min-height: 2rem;
+        .timer {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+    }
     &__btn {
         font-size: 1.5rem;
         color: darkred;

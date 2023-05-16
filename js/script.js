@@ -3,6 +3,7 @@ import getRandomBombs from "./modules/get-random-bombs.js";
 import getField from "./modules/get-field.js";
 import toCreateCell from "./modules/to-create-cell.js";
 import toCreateField from "./modules/to-create-field.js";
+import startTimer from "./modules/timer.js";
 /* import clickLeftListener from "./modules/to-click-left-listener.js"; */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,13 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
         toCreateCell: toCreateCell
     };
 
-    toCreateField(dataForField);
+    const startBtn = document.querySelector('.main__btn');
+    startBtn.addEventListener('click', () => {
+        startBtn.style.display = 'none';
+        startTimer();
+        toCreateField(dataForField);
+    });
 
-/*     toCreateLayout( getField( 100, 10, getRandomBombs ) );
-    toCreateField('.main'); */
-
-/*     const startBtn = document.querySelector('.main__btn');
-    const cells = document.querySelectorAll('.cell');
+/*  const cells = document.querySelectorAll('.cell');
     const gameStatus = document.querySelector('.main__game-status');
 
     startBtn.addEventListener('click', () => {
