@@ -1,7 +1,6 @@
 const getTime = () => {
     const timer = document.querySelector('.timer');
-    if (timer) {
-        const time = timer.textContent;
+    const time = timer.textContent;
     let sec = +(time.slice(6));
     let min = +(time.slice(3, 5));
     let hour = +(time.slice(0, 2));
@@ -18,10 +17,6 @@ const getTime = () => {
         return num < 10 ? `0${num}` : num;
     }
     timer.textContent = `${addZero(hour)}:${addZero(min)}:${addZero(sec)}`;
-    } else {
-        clearInterval(getTime);
-    }
-    
 }
 
 export default getTime;

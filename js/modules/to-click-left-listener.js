@@ -15,7 +15,6 @@ const clickLeftListener = () => {
     const listenerCallback = (event) => {
         
         const timerContent = timer.textContent;
-        console.log(timerContent);
         if (event.target.dataset.content === 'b') {
             event.target.classList.add('cell_bomb');
             gameStatus.textContent = `You lose. Your time ${timerContent} Try again.`;

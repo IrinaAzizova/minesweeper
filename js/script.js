@@ -19,15 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
         getRandomBombs: getRandomBombs,
         toCreateCell: toCreateCell
     };
-    let gameStatus = 'off';
+    /* let gameStatus = 'off'; */
 
     const startBtn = document.querySelector('.main__btn');
     startBtn.addEventListener('click', () => {
         startBtn.style.display = 'none';
         toCreateTimer();
         toCreateField(dataForField);
-        setInterval(getTime, 1000);
-        clickLeftListener(getTime);
+        const cells = document.querySelectorAll('.cell');
+        const timer = setInterval(() => {
+            getTime()
+        }, 1000);
+        clickLeftListener();
+        cells.forEach(cell => {
+            cell.addEventListener('click', (event) => {
+                if (event.target.dataset.content === 'b') {
+                    clearInterval(timer);
+                }                
+            });
+        });
     });
 });
 
