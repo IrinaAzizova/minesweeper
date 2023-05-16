@@ -32,6 +32,8 @@
     }
     &__game-status {
         font-size: 1.8rem;
+        margin: 0 auto;
+        text-align: center;
         color: var(--dark-color);
         span {
             color: darkred;
