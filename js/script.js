@@ -1,13 +1,27 @@
+import toCreateLayout from "./modules/to-create-layout.js";
 import getRandomBombs from "./modules/get-random-bombs.js";
 import getField from "./modules/get-field.js";
+import toCreateCell from "./modules/to-create-cell.js";
 import toCreateField from "./modules/to-create-field.js";
-import toCreateLayout from "./modules/to-create-layout.js";
-import clickLeftListener from "./modules/to-click-left-listener.js";
+/* import clickLeftListener from "./modules/to-click-left-listener.js"; */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    toCreateLayout( getField( 100, 10, getRandomBombs ) );
-    toCreateField('.main');
+    toCreateLayout();
+
+    const dataForField = {
+        parentSelector: '.main',
+        totalCells: 100,
+        totalBombs: 10,
+        getField: getField,
+        getRandomBombs: getRandomBombs,
+        toCreateCell: toCreateCell
+    };
+
+    toCreateField(dataForField);
+
+/*     toCreateLayout( getField( 100, 10, getRandomBombs ) );
+    toCreateField('.main'); */
 
 /*     const startBtn = document.querySelector('.main__btn');
     const cells = document.querySelectorAll('.cell');

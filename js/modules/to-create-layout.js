@@ -1,14 +1,5 @@
-const toCreateLayout = (fieldLayout) => {
-
-    const toCreateCell = (text) => {
-        const field = document.querySelector('.field');
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.dataset.content = text === 0 ? '' : text;
-        /* cell.textContent = text === 0 ? '' : text; */
-        field.append(cell);
-    }
-
+const toCreateLayout = () => {
+    
     const body = document.body;
     const main = document.createElement('main');
     main.classList.add('main');
