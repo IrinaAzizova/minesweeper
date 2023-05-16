@@ -41,11 +41,15 @@
     &__data {
         min-height: 2rem;
         .timer {
+            margin-top: 1rem;
+            text-align: center;
             font-size: 1.5rem;
             color: var(--dark-color);
         }
     }
     &__btn {
+        display: block;
+        margin: 0 auto 1rem;
         font-size: 1.5rem;
         color: darkred;
         padding: 0.5rem 1.5rem;

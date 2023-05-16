@@ -5,7 +5,6 @@ const toCreateLayout = () => {
     main.classList.add('main');
     main.innerHTML = `
         <h1 class="main__title">Minesweeper</h1>
-        <p class="main__game-status">Mines on playing field: <span>10</span></p>
         <div class="main__data">
             <button class="main__btn">start new game</button>
         </div>
