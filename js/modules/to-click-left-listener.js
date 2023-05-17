@@ -4,8 +4,13 @@ const clickLeftListener = () => {
     const gameStatus = document.querySelector('.main__game-status');
     const timer = document.querySelector('.timer')
     const startBtn = document.querySelector('.main__btn');
+    const totalMines = document.querySelector('.main__game-status span');
+    const flagsTitle = document.querySelector('.main__game-flags');
+    const totalFlags = flagsTitle.querySelector('span');
 
     let clickCounter = 0;
+    let flags = 0;
+    let mines = 10;
 
     const removeClick = () => {
         cells.forEach(cell => {
@@ -14,14 +19,40 @@ const clickLeftListener = () => {
         });
     }
 
+    const removeRightClick = () => {
+        cells.forEach(cell => {            
+            cell.removeEventListener('contextmenu', rightClickHandler);
+        });
+    }
+
+    const endGame = () => {
+        removeClick();
+        removeRightClick();
+        timer.remove();
+        flagsTitle.remove();
+        startBtn.style.display = 'block';
+    }
+    
+    const rightClickHandler = (event) => {
+        event.preventDefault();
+            if (event.button === 2 && !event.target.classList.contains('cell_open')) {
+                event.target.classList.toggle('cell_flag');
+                if(event.target.classList.contains('cell_flag')) {
+                    event.target.removeEventListener('click', listenerCallback);
+                    mines--;
+                    flags++;
+                } else {
+                    event.target.addEventListener('click', listenerCallback);
+                    mines++;
+                    flags--;
+                }
+                totalMines.textContent = mines;            
+                totalFlags.textContent = flags;  
+            }
+    }
+
     const listenerCallback = (event) => {
-        clickCounter++
-        console.log(clickCounter);
-        const endGame = () => {
-            removeClick();
-            timer.remove();
-            startBtn.style.display = 'block';
-        }        
+        clickCounter++;             
         let timerContent = timer.textContent;
         
         if (event.target.dataset.content === 'b') {
@@ -44,6 +75,7 @@ const clickLeftListener = () => {
 
     cells.forEach((cell, i) => {
         cell.addEventListener('click', listenerCallback);        
+        cell.addEventListener('contextmenu', rightClickHandler);
     });
 }
 

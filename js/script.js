@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         getRandomBombs: getRandomBombs,
         toCreateCell: toCreateCell
     };
-    /* let gameStatus = 'off'; */
 
     const startBtn = document.querySelector('.main__btn');
     startBtn.addEventListener('click', () => {
@@ -35,10 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.addEventListener('click', (event) => {
                 if (event.target.dataset.content === 'b') {
                     clearInterval(timer);
-                }                
+                }      
             });
+
         });
     });
+
+    
 });
 
 

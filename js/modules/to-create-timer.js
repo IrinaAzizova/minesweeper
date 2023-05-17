@@ -10,6 +10,13 @@ const toCreateTimer = () => {
     mines.textContent = 10;
     gameStatusBlock.append(mines);
     parent.append(gameStatusBlock);
+    const flagsStatus = document.createElement('p');
+    flagsStatus.classList.add('main__game-flags');
+    flagsStatus.textContent = 'Flags on playing field: ';
+    const flags = document.createElement('span');
+    flags.textContent = 0;
+    flagsStatus.append(flags);
+    parent.append(flagsStatus);
     const timerBlock = document.createElement('div');
     timerBlock.classList.add('timer');
     timerBlock.textContent = '00:00:00';

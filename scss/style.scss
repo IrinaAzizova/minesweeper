@@ -30,9 +30,9 @@
         color: var(--main-color);
         text-shadow: var(--shadow);
     }
-    &__game-status {
+    &__game-status, &__game-flags {
         font-size: 1.8rem;
-        margin: 0 auto;
+        margin: 0 auto 1rem;
         text-align: center;
         color: var(--dark-color);
         span {
