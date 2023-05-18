@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toCreateField(dataForField);
         const cells = document.querySelectorAll('.cell');
         const timer = setInterval(() => {
-            getTime()
+            getTime(timer)
         }, 1000);
         clickLeftListener();
         cells.forEach(cell => {

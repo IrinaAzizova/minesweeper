@@ -7,6 +7,8 @@ const clickLeftListener = () => {
     const totalMines = document.querySelector('.main__game-status span');
     const flagsTitle = document.querySelector('.main__game-flags');
     const totalFlags = flagsTitle.querySelector('span');
+    const clicksTitle = document.querySelector('.main__game-clicks');
+    const totalClicks = clicksTitle.querySelector('span');
 
     let clickCounter = 0;
     let flags = 0;
@@ -30,34 +32,41 @@ const clickLeftListener = () => {
         removeRightClick();
         timer.remove();
         flagsTitle.remove();
+        clicksTitle.remove();
         startBtn.style.display = 'block';
+    }
+
+    const clickCount = () => {
+        clickCounter++;
+        totalClicks.textContent = clickCounter;
     }
     
     const rightClickHandler = (event) => {
         event.preventDefault();
-            if (event.button === 2 && !event.target.classList.contains('cell_open')) {
-                event.target.classList.toggle('cell_flag');
-                if(event.target.classList.contains('cell_flag')) {
-                    event.target.removeEventListener('click', listenerCallback);
-                    mines--;
-                    flags++;
-                } else {
-                    event.target.addEventListener('click', listenerCallback);
-                    mines++;
-                    flags--;
-                }
-                totalMines.textContent = mines;            
-                totalFlags.textContent = flags;  
+        clickCount();
+        if (event.button === 2 && !event.target.classList.contains('cell_open')) {
+            event.target.classList.toggle('cell_flag');
+            if(event.target.classList.contains('cell_flag')) {
+                event.target.removeEventListener('click', listenerCallback);
+                mines--;
+                flags++;
+            } else {
+                event.target.addEventListener('click', listenerCallback);
+                mines++;
+                flags--;
             }
+            totalMines.textContent = mines;            
+            totalFlags.textContent = flags;  
+        }
     }
 
     const listenerCallback = (event) => {
-        clickCounter++;             
+        clickCount();
         let timerContent = timer.textContent;
         
         if (event.target.dataset.content === 'b') {
             event.target.classList.add('cell_bomb');
-            gameStatus.textContent = `You lose. Your time ${timerContent}. Try again.`;
+            gameStatus.innerHTML = `You lose. Your time ${timerContent}.<br>Number of moves ${clickCounter}.<br>Try again.`;
             gameStatus.style.color = 'black';
             gameStatus.style.fontWeight = 'bold';
             endGame();
