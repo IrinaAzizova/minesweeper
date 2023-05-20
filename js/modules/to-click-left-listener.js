@@ -40,6 +40,21 @@ const clickLeftListener = () => {
         clickCounter++;
         totalClicks.textContent = clickCounter;
     }
+
+    
+    /* const openSpaces = (i) => {
+        const indexes = [i - 11, i - 10, i - 9, i - 1, i + 1, i + 9, i + 10, i + 11];
+        if (cells[i].dataset.content === '') {
+            if (cells[i-10] && !cells[i-10].classList.contains('cell_open')) {
+                cells[i-10].classList.add('cell_open');
+                cells[i-10].textContent = cells[i-10].dataset.content;
+                if (cells[i - 10].dataset.content === '') {
+                    openSpaces(i - 10);
+                }
+            }
+            console.log('space', i);
+        }
+    } */
     
     const rightClickHandler = (event) => {
         event.preventDefault();
@@ -47,7 +62,8 @@ const clickLeftListener = () => {
         if (event.button === 2 && !event.target.classList.contains('cell_open')) {
             event.target.classList.toggle('cell_flag');
             if(event.target.classList.contains('cell_flag')) {
-                event.target.removeEventListener('click', listenerCallback);
+                event.target.removeEventListener('click',listenerCallback);
+                console.log(flags);
                 mines--;
                 flags++;
             } else {
@@ -63,6 +79,8 @@ const clickLeftListener = () => {
     const listenerCallback = (event) => {
         clickCount();
         let timerContent = timer.textContent;
+
+       /*  openSpaces(i); */
         
         if (event.target.dataset.content === 'b') {
             event.target.classList.add('cell_bomb');
@@ -71,6 +89,9 @@ const clickLeftListener = () => {
             gameStatus.style.fontWeight = 'bold';
             endGame();
         } else {
+            /* if (event.target.dataset.content === '') {
+                console.log(i);
+            } */
             event.target.textContent = event.target.dataset.content;
             event.target.classList.add('cell_open');
             const cellsOpen = document.querySelectorAll('.cell_open');
@@ -83,7 +104,7 @@ const clickLeftListener = () => {
     }
 
     cells.forEach((cell, i) => {
-        cell.addEventListener('click', listenerCallback);        
+        cell.addEventListener('click',listenerCallback);        
         cell.addEventListener('contextmenu', rightClickHandler);
     });
 }

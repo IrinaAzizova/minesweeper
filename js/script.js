@@ -1,6 +1,5 @@
 import toCreateLayout from "./modules/to-create-layout.js";
-import getRandomBombs from "./modules/get-random-bombs.js";
-import getField from "./modules/get-field.js";
+import getBombsField from "./modules/get-bombs-field.js";
 import toCreateCell from "./modules/to-create-cell.js";
 import toCreateField from "./modules/to-create-field.js";
 import toCreateTimer from "./modules/to-create-timer.js";
@@ -11,17 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toCreateLayout();
 
-    const dataForField = {
-        parentSelector: '.main',
-        totalCells: 100,
-        totalBombs: 10,
-        getField: getField,
-        getRandomBombs: getRandomBombs,
-        toCreateCell: toCreateCell
-    };
-
     const startBtn = document.querySelector('.main__btn');
     startBtn.addEventListener('click', () => {
+
+        const dataForField = {
+            parentSelector: '.main',
+            bombsArr: getBombsField(100, 10), //bombs array
+            toCreateCell: toCreateCell
+        };
+
         startBtn.style.display = 'none';
         toCreateTimer();
         toCreateField(dataForField);
@@ -36,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     clearInterval(timer);
                 }      
             });
-
         });
     });
 
