@@ -1,4 +1,4 @@
-const toCreateField = ({parentSelector, toCreateCell, bombsArr}) => {
+const toCreateField = ({parentSelector, bombsArr, toCreateCell}) => {
     const parent = document.querySelector(parentSelector);
     if (parent.querySelector('.field')) {
         parent.querySelector('.field').remove();
@@ -6,9 +6,10 @@ const toCreateField = ({parentSelector, toCreateCell, bombsArr}) => {
     const field = document.createElement('div');
     field.classList.add('field');
     parent.append(field);
-    bombsArr.forEach(row => {
-        row.forEach(item => {
-            toCreateCell(item);
+    bombsArr.forEach((row, y) => {
+        row.forEach((item, x) => {
+            let num = y * 10 + x;
+            toCreateCell(item, num);
         });
     })
 }

@@ -1,4 +1,4 @@
-const clickLeftListener = () => {
+const clickLeftListener = (bombsArr) => {
     
     const cells = document.querySelectorAll('.cell');
     const gameStatus = document.querySelector('.main__game-status');
@@ -40,21 +40,6 @@ const clickLeftListener = () => {
         clickCounter++;
         totalClicks.textContent = clickCounter;
     }
-
-    
-    /* const openSpaces = (i) => {
-        const indexes = [i - 11, i - 10, i - 9, i - 1, i + 1, i + 9, i + 10, i + 11];
-        if (cells[i].dataset.content === '') {
-            if (cells[i-10] && !cells[i-10].classList.contains('cell_open')) {
-                cells[i-10].classList.add('cell_open');
-                cells[i-10].textContent = cells[i-10].dataset.content;
-                if (cells[i - 10].dataset.content === '') {
-                    openSpaces(i - 10);
-                }
-            }
-            console.log('space', i);
-        }
-    } */
     
     const rightClickHandler = (event) => {
         event.preventDefault();
@@ -63,7 +48,6 @@ const clickLeftListener = () => {
             event.target.classList.toggle('cell_flag');
             if(event.target.classList.contains('cell_flag')) {
                 event.target.removeEventListener('click',listenerCallback);
-                console.log(flags);
                 mines--;
                 flags++;
             } else {
@@ -76,23 +60,48 @@ const clickLeftListener = () => {
         }
     }
 
+    const openSpaces = (num) => {
+        let indexes = [+num - 11, +num - 10, +num - 9, +num - 1, +num + 1, +num + 9, +num + 10, +num + 11]
+        indexes.forEach( index => {
+            if (cells[index] && !cells[index].classList.contains('cell_open')) {
+                if (index === +num - 10 ||
+                    index === +num + 10 ||
+                    index === +num + 1 && +num % 10 !== 9 ||
+                    index === +num - 1 && +num % 10 !== 0 ||
+                    index === +num + 11 && +num % 10 !== 9 ||
+                    index === +num - 11 && +num % 10 !== 0 ||
+                    index === +num - 9 && +num % 10 !== 9 ||
+                    index === +num + 9 && +num % 10 !== 0) {
+                    cells[index].classList.add('cell_open');
+                    cells[index].textContent = cells[index].dataset.content;
+                    cells[index].removeEventListener('contextmenu', rightClickHandler);
+                    cells[index].removeEventListener('click', listenerCallback);
+                    if (cells[index].dataset.content === '') {
+                        openSpaces(index, cells[index].dataset.content);
+                    }
+                }
+            }  
+        });
+    }
+
     const listenerCallback = (event) => {
         clickCount();
+        event.target.removeEventListener('click', listenerCallback);
+        event.target.removeEventListener('contextmenu', rightClickHandler);
         let timerContent = timer.textContent;
-
-       /*  openSpaces(i); */
+        const {content, num} = event.target.dataset;
         
-        if (event.target.dataset.content === 'b') {
+        if (content === 'b') {
             event.target.classList.add('cell_bomb');
             gameStatus.innerHTML = `You lose. Your time ${timerContent}.<br>Number of moves ${clickCounter}.<br>Try again.`;
             gameStatus.style.color = 'black';
             gameStatus.style.fontWeight = 'bold';
             endGame();
         } else {
-            /* if (event.target.dataset.content === '') {
-                console.log(i);
-            } */
-            event.target.textContent = event.target.dataset.content;
+            if (content === '') {
+                openSpaces(num);
+            }
+            event.target.textContent = content;
             event.target.classList.add('cell_open');
             const cellsOpen = document.querySelectorAll('.cell_open');
             if (cellsOpen.length >= 90) {

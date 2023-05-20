@@ -1,4 +1,4 @@
-const toCreateCell = (text) => {
+const toCreateCell = (text, num) => {
     const field = document.querySelector('.field');
     const cell = document.createElement('div');
     cell.classList.add('cell');
@@ -33,6 +33,7 @@ const toCreateCell = (text) => {
         cell.classList.add('cell_blue');
     } */
     cell.dataset.content = text === 0 ? '' : text;
+    cell.dataset.num = num;
     field.append(cell);
 }
 

@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const timer = setInterval(() => {
             getTime(timer)
         }, 1000);
-        clickLeftListener();
+        clickLeftListener(dataForField.bombsArr);
         cells.forEach(cell => {
             cell.addEventListener('click', (event) => {
                 if (event.target.dataset.content === 'b') {
