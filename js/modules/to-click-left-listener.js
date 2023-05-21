@@ -13,6 +13,8 @@ const clickLeftListener = (bombsArr) => {
     let clickCounter = 0;
     let flags = 0;
     let mines = 10;
+    
+    const clckAudio = new Audio("../../audio/click.mp3");
 
     const removeClick = () => {
         cells.forEach(cell => {
@@ -85,6 +87,8 @@ const clickLeftListener = (bombsArr) => {
     }
 
     const listenerCallback = (event) => {
+        clckAudio.play();
+
         clickCount();
         event.target.removeEventListener('click', listenerCallback);
         event.target.removeEventListener('contextmenu', rightClickHandler);
