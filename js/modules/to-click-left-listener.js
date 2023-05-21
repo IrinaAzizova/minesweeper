@@ -15,6 +15,9 @@ const clickLeftListener = (bombsArr) => {
     let mines = 10;
     
     const clckAudio = new Audio("../../audio/click.mp3");
+    const flagAudio = new Audio("../../audio/flag.mp3");
+    const bombAudio = new Audio("../../audio/bomb.mp3");
+    const winAudio = new Audio("../../audio/win.mp3");
 
     const removeClick = () => {
         cells.forEach(cell => {
@@ -46,6 +49,7 @@ const clickLeftListener = (bombsArr) => {
     const rightClickHandler = (event) => {
         event.preventDefault();
         clickCount();
+        flagAudio.play();
         if (event.button === 2 && !event.target.classList.contains('cell_open')) {
             event.target.classList.toggle('cell_flag');
             if(event.target.classList.contains('cell_flag')) {
@@ -87,8 +91,6 @@ const clickLeftListener = (bombsArr) => {
     }
 
     const listenerCallback = (event) => {
-        clckAudio.play();
-
         clickCount();
         event.target.removeEventListener('click', listenerCallback);
         event.target.removeEventListener('contextmenu', rightClickHandler);
@@ -96,12 +98,15 @@ const clickLeftListener = (bombsArr) => {
         const {content, num} = event.target.dataset;
         
         if (content === 'b') {
+            bombAudio.play();
             event.target.classList.add('cell_bomb');
             gameStatus.innerHTML = `You lose. Your time ${timerContent}.<br>Number of moves ${clickCounter}.<br>Try again.`;
             gameStatus.style.color = 'black';
             gameStatus.style.fontWeight = 'bold';
             endGame();
         } else {
+            clckAudio.play();
+
             if (content === '') {
                 openSpaces(num);
             }
@@ -109,6 +114,7 @@ const clickLeftListener = (bombsArr) => {
             event.target.classList.add('cell_open');
             const cellsOpen = document.querySelectorAll('.cell_open');
             if (cellsOpen.length >= 90) {
+                winAudio.play();
                 gameStatus.innerHTML = `You win.<br>Your time ${timerContent}.<br>Number of moves ${clickCounter}.<br>Congratulations!`;
                 gameStatus.style.color = 'darkred';
                 endGame();
